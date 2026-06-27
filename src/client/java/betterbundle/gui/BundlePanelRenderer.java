@@ -152,7 +152,7 @@ public final class BundlePanelRenderer {
 
     public static boolean isRecipeBookOpen() {
         Minecraft client = Minecraft.getInstance();
-        if (client.screen instanceof AbstractRecipeBookScreen<?> screen) return screen.recipeBookComponent.isVisible();
+        if (client.gui.screen() instanceof AbstractRecipeBookScreen<?> screen) return screen.recipeBookComponent.isVisible();
         return false;
     }
 
@@ -246,7 +246,7 @@ public final class BundlePanelRenderer {
         graphics.fill(panelX + 16, panelY, panelX + pw, panelY + panelHeight, 0xC0101010);
 
         Minecraft client = Minecraft.getInstance();
-        Font font = client.font;
+        Font font = client.gui.font;
 
         int totalRows = Math.max(1, (items.size() + COLUMNS - 1) / COLUMNS);
         int maxScroll = Math.max(0, totalRows - VISIBLE_ROWS);
@@ -309,7 +309,7 @@ public final class BundlePanelRenderer {
 
                 FlatItem fi = items.get(flatIndex);
                 graphics.item(fi.stack(), sx + 1, sy + 1);
-                graphics.itemDecorations(client.font, fi.stack(), sx + 1, sy + 1);
+                graphics.itemDecorations(client.gui.font, fi.stack(), sx + 1, sy + 1);
 
                 if (mouseX >= sx && mouseX < sx + SLOT_SIZE && mouseY >= sy && mouseY < sy + SLOT_SIZE) {
                     hoveredFlatIndex = flatIndex;
@@ -323,7 +323,7 @@ public final class BundlePanelRenderer {
             int hx = gridX + hCol * (SLOT_SIZE + SLOT_SPACING);
             int hy = gridY + hRow * (SLOT_SIZE + SLOT_SPACING);
             graphics.fill(hx, hy, hx + SLOT_SIZE, hy + SLOT_SIZE, 0x80FFFFFF);
-            graphics.setTooltipForNextFrame(client.font, items.get(hoveredFlatIndex).stack(), mouseX, mouseY);
+            graphics.setTooltipForNextFrame(client.gui.font, items.get(hoveredFlatIndex).stack(), mouseX, mouseY);
             hoveredBundleSlot = items.get(hoveredFlatIndex).bundleSlot();
         } else {
             hoveredBundleSlot = -1;
